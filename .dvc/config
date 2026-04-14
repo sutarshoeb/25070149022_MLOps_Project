@@ -1,5 +1,5 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = s3://mlops-imdb-25070149022
+    url = s3://mlops-imdb0-25070149022
     region = ap-south-1
