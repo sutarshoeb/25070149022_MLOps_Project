@@ -1,0 +1,16 @@
+dvc
+dvc-s3
+mlflow
+scikit-learn
+pandas
+numpy
+torch
+transformers
+flask
+flask-cors
+boto3
+awscli
+pyyaml
+nltk
+joblib
+gunicorn
