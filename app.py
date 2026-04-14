@@ -1,4 +1,3 @@
-import torch
 import joblib
 import yaml
 import os
@@ -43,15 +42,12 @@ def predict():
     try:
         data = request.get_json()
         review = data.get("review", "")
-
         if not review:
             return jsonify({"error": "No review provided"}), 400
-
         cleaned = text_preprocess(review)
         vectorized = vectorizer.transform([cleaned])
         prediction = model.predict(vectorized)[0]
         sentiment = "Positive" if prediction == 1 else "Negative"
-
         return jsonify({
             "review": review,
             "sentiment": sentiment,
