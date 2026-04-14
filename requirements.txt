@@ -8,9 +8,8 @@ torch
 transformers
 flask
 flask-cors
-boto3
-awscli
 pyyaml
 nltk
 joblib
 gunicorn
+boto3
