@@ -1,3 +1,7 @@
 venv/
 __pycache__/
 *.pyc
+models/*.pkl
+mlruns/
+mlflow.db
+data/processed/
