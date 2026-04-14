@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+from src.monitoring import log_prediction, logger
 
 nltk.download("stopwords", quiet=True)
 nltk.download("wordnet", quiet=True)
@@ -48,11 +49,13 @@ def predict():
         vectorized = vectorizer.transform([cleaned])
         prediction = model.predict(vectorized)[0]
         sentiment = "Positive" if prediction == 1 else "Negative"
-        return jsonify({
-            "review": review,
-            "sentiment": sentiment,
-            "confidence": "High"
-        })
+        result = {
+            "review" : review,
+            "sentiment" : sentiment,
+            "confidence" : "High"
+        }
+        log_prediction(review,sentiment,"High")
+        return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
