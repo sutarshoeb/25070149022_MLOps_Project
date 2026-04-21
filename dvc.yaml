@@ -1,6 +1,6 @@
 stages:
   preprocess:
-    cmd: python src/data_preprocessing.py
+    cmd: python3 src/data_preprocessing.py
     deps:
       - src/data_preprocessing.py
       - data/raw/IMDB Dataset.csv
@@ -10,7 +10,7 @@ stages:
       - data/processed/test.csv
 
   train_traditional:
-    cmd: python src/train_traditional.py
+    cmd: python3 src/train_traditional.py
     deps:
       - src/train_traditional.py
       - data/processed/train.csv
@@ -20,7 +20,7 @@ stages:
       - models/
 
   evaluate:
-    cmd: python src/evaluate.py
+    cmd: python3 src/evaluate.py
     deps:
       - src/evaluate.py
       - data/processed/test.csv

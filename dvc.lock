@@ -1,0 +1,67 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python3 src/data_preprocessing.py
+    deps:
+    - path: data/raw/IMDB Dataset.csv
+      hash: md5
+      md5: 308443a50e5c993e7b8a1cdb95750026
+      size: 66212309
+    - path: params.yaml
+      hash: md5
+      md5: 9289df2910c9184cdf939846724c1ed0
+      size: 445
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: 8020caaf1284bd45d7bc2934f889c7e2
+      size: 1856
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 153698ff34cc1821a6c596b951be3c9c
+      size: 20954507
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b3c80bea1d3a947995339e71a66fadbc
+      size: 83917874
+  train_traditional:
+    cmd: python3 src/train_traditional.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 153698ff34cc1821a6c596b951be3c9c
+      size: 20954507
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b3c80bea1d3a947995339e71a66fadbc
+      size: 83917874
+    - path: params.yaml
+      hash: md5
+      md5: 9289df2910c9184cdf939846724c1ed0
+      size: 445
+    - path: src/train_traditional.py
+      hash: md5
+      md5: 000e467085ea2809079ffa5e7973c00b
+      size: 2858
+    outs:
+    - path: models/
+      hash: md5
+      md5: 183c30023d36416fb76aaab6d3ff2510.dir
+      size: 218156064
+      nfiles: 9
+  evaluate:
+    cmd: python3 src/evaluate.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 153698ff34cc1821a6c596b951be3c9c
+      size: 20954507
+    - path: models/
+      hash: md5
+      md5: 183c30023d36416fb76aaab6d3ff2510.dir
+      size: 218156064
+      nfiles: 9
+    - path: src/evaluate.py
+      hash: md5
+      md5: d11c6357d2867e3a9edabd276d4fb73f
+      size: 1750

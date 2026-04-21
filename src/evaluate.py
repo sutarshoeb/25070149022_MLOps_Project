@@ -34,22 +34,23 @@ def evaluate_traditional():
         X_test_vec = vectorizer.transform(X_test)
         y_pred = model.predict(X_test_vec)
 
-        accuracy = accuracy_score(y_test, y_pred)
+        acc = accuracy_score(y_test, y_pred)
         f1 = f1_score(y_test, y_pred, average="weighted")
 
         results.append({
             "model": model_name,
-            "accuracy": accuracy,
-            "f1_score": f1
+            "acc": acc,
+            "f1": f1
         })
 
         print(f"\n{model_name}:")
         print(classification_report(y_test, y_pred, target_names=["Negative", "Positive"]))
 
-    results_df = pd.DataFrame(results).sort_values("accuracy", ascending=False)
-    print("\n=== Model Comparison ===")
-    print(results_df)
-    results_df.to_csv("models/evaluation_results.csv", index=False)
+    if results:
+        results_df = pd.DataFrame(results).sort_values("acc", ascending=False)
+        print("\n=== Model Comparison ===")
+        print(results_df)
+        results_df.to_csv("models/evaluation_results.csv", index=False)
     print("\nEvaluation complete!")
 
 if __name__ == "__main__":
