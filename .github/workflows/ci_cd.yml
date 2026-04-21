@@ -46,3 +46,27 @@ jobs:
             print(f'Found: {f}')
         print('All files present!')
         "
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          cd 25070149022_MLOps_Project
+          git pull origin main
+          docker stop imdb-api || true
+          docker rm imdb-api || true
+          docker build -t imdb-sentiment-api .
+          docker run -d -p 5000:5000 --name imdb-api imdb-sentiment-api
+          echo "Deployment successful!"
