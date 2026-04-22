@@ -32,7 +32,7 @@ vectorizer = joblib.load("models/TfidfVectorizer.pkl")
 @app.route("/", methods=["GET"])
 def home():
     return jsonify({
-        "message": "IMDB Sentiment Analysis API",
+        "message": "IMDB Sentiment Analysis API - Live Demo",
         "endpoints": {
             "/predict": "POST - Predict sentiment of a movie review"
         }
